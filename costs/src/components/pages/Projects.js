@@ -5,10 +5,12 @@ import styles from './Projects.module.css'
 import Container from "../layout/Container"
 import LinkButton from "../layout/LinkButton"
 import ProjectCard from "../project/ProjectCard"
+import Loading from "../layout/Loading"
 
 function Projects() {
 
     const [projects, setProjects] = useState([])
+    const [removeLoading, setRemoveLoadind] = useState(false)
 
     const location = useLocation()
     let message = ''
@@ -24,7 +26,10 @@ function Projects() {
             },
         })
         .then((resp) => resp.json())
-        .then((data) => setProjects(data))
+        .then((data) => {
+            setProjects(data)    
+            setRemoveLoadind(true)
+        })
         .catch((err) => console.log(err))
     }, [])
 
@@ -34,7 +39,7 @@ function Projects() {
                 <h1>My Projects</h1>
                 <LinkButton to="/newproject" text="Create Project"/>
             </div>
-            {message && <Message msg={message} type="success" /> }
+            {message && <Message msg={message} type="success" />}
             <Container customClass="start">
                 {projects.length > 0 &&
                     projects.map((project) => (
@@ -47,7 +52,10 @@ function Projects() {
                         />
                     ))
                 }
-                
+            {!removeLoading && <Loading/> }
+            {removeLoading && projects.length === 0 && (
+                <p>There are no registered projects</p>
+            )}
             </Container>
         </div>
     )
