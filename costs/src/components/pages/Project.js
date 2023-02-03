@@ -14,6 +14,8 @@ function Project() {
 
     const [showProjectForm, setShowProjectForm] = useState(false)
 
+    const [showServiceForm, setShowServiceForm] = useState(false)
+
     const [message, setMessage] = useState()
 
     const [type, setType] = useState()
@@ -40,9 +42,15 @@ function Project() {
         setShowProjectForm(!showProjectForm)
     }
 
+    function toggleServiceForm() {
+        setShowServiceForm(!showServiceForm)
+    }
+
     function editPost(project) {
 
-        if(project.budget < project.cost){
+        setMessage("")
+
+        if(project.budget < project.costs){
             setMessage("Budget cannot be lower than cost of project!")
             setType("error")
             return false
@@ -84,7 +92,7 @@ function Project() {
                                         <span>Total Budget</span> ${project.budget}
                                     </p>
                                     <p>
-                                        <span>Used Budget</span> ${project.cost}
+                                        <span>Used Budget</span> ${project.costs}
                                     </p>
                                 </div>
                             ) : (
@@ -95,6 +103,20 @@ function Project() {
                                 </div>
                             ) }
                         </div>
+                        <div className={styles.service_form_container}>
+                            <h2>Add a service:</h2>
+                            <button className={styles.btn} onClick={toggleServiceForm}>{!showServiceForm ? "Add Service" : "Close"}</button>
+                            <div className={styles.project_info}>
+                                {showServiceForm && (
+                                    <div>Service Form</div>
+                                )
+                                }
+                            </div>
+                        </div>
+                        <h2>Services</h2>
+                        <Container customClass="start">
+                            <p>Itens of Service</p>
+                        </Container>
                     </Container>
                 </div>
             ): (
