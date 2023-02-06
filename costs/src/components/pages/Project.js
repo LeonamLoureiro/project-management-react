@@ -1,16 +1,20 @@
 import styles from './Project.module.css'
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import { parse, v4 as uuidv4 } from 'uuid'
 import Loading from '../layout/Loading'
 import Container from '../layout/Container'
 import ProjectForm from '../project/ProjectForm'
 import Message from '../layout/Message'
+import ServiceForm from '../service/ServiceForm'
 
 function Project() {
     
     const {id} = useParams()
 
     const [project, setProject] = useState([])
+
+    const [services, setServices] = useState([])
 
     const [showProjectForm, setShowProjectForm] = useState(false)
 
@@ -32,12 +36,47 @@ function Project() {
             .then((resp) => resp.json())
             .then((data) => {
                 setProject(data)
-                console.log(data)
+                setServices(data.services)
             })
             .catch(err => console.log(err))
             }, 300)
         }, [id])
     
+    function createService(project) {
+
+        setMessage('')
+        const lastService = project.services[project.services.length - 1]
+        lastService.id = uuidv4()
+
+        const lastServiceCost = lastService.cost
+        const newCost = parseFloat(project.costs) + parseFloat(lastServiceCost)
+
+        if(newCost > parseFloat(project.budget)) {
+            setMessage('Budget blown! Check the cost of the service')
+            setType('error')
+            project.services.pop()
+            return false
+        }
+
+        project.costs = newCost
+
+        //update project
+
+        fetch(`http://localhost:5000/projects/${project.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': "application/json",
+            },
+            body: JSON.stringify(project),
+        })
+        .then((resp) => resp.json())
+        .then((data) => {
+            console.log(data)
+        })
+        .catch(err => console.log(err))
+
+    }
+
     function toggleProjectForm() {
         setShowProjectForm(!showProjectForm)
     }
@@ -108,14 +147,19 @@ function Project() {
                             <button className={styles.btn} onClick={toggleServiceForm}>{!showServiceForm ? "Add Service" : "Close"}</button>
                             <div className={styles.project_info}>
                                 {showServiceForm && (
-                                    <div>Service Form</div>
+                                    <ServiceForm handleSubmit={createService} btnText="Add Service" projectData={project} />
                                 )
                                 }
                             </div>
                         </div>
                         <h2>Services</h2>
                         <Container customClass="start">
-                            <p>Itens of Service</p>
+                            {services.length > 0
+
+                            }
+                            {services.length === 0 && <p>There are no registered services</p>
+
+                            }
                         </Container>
                     </Container>
                 </div>

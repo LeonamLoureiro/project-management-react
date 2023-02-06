@@ -21,6 +21,84 @@
       "costs": 0,
       "services": [],
       "id": 2
+    },
+    {
+      "name": "Project 4",
+      "budget": "5000",
+      "category": {
+        "id": "2",
+        "name": "Development"
+      },
+      "costs": 5000,
+      "services": [
+        {
+          "name": "Service 1",
+          "cost": "1000",
+          "description": "Service for test",
+          "id": "94ff7cbf-6040-46e2-bcbd-6ed31c418947"
+        },
+        {
+          "name": "Service 1",
+          "cost": "1000",
+          "description": "Service for test",
+          "id": "94ff7cbf-6040-46e2-bcbd-6ed31c418947"
+        },
+        {
+          "name": "Service 1",
+          "cost": "1000",
+          "description": "Service for test",
+          "id": "de08d9a1-abcc-41ab-9af1-ac8d1b917311"
+        },
+        {
+          "name": "Service 1",
+          "cost": "1000",
+          "description": "Service for test",
+          "id": "aafb7aa1-37b6-4ebb-82a3-ce3b05dae2bb"
+        },
+        {
+          "name": "Service 1",
+          "cost": "1000",
+          "description": "Service for test",
+          "id": "aafb7aa1-37b6-4ebb-82a3-ce3b05dae2bb"
+        }
+      ],
+      "id": 3
+    },
+    {
+      "name": "Project 5",
+      "budget": "10000",
+      "category": {
+        "id": "4",
+        "name": "Planning"
+      },
+      "costs": 1400,
+      "services": [
+        {
+          "name": "Service 2",
+          "cost": "500",
+          "description": "Service for test",
+          "id": "df484662-e26e-4ff3-a394-6a28acd7edb6"
+        },
+        {
+          "name": "Service 2",
+          "cost": "500",
+          "description": "Service for test",
+          "id": "78352ce4-655d-4b1d-8433-e654adf3a206"
+        },
+        {
+          "name": "Service 3",
+          "cost": "250",
+          "description": "Service for test",
+          "id": "2b5d8990-e9dd-4784-ba81-3de5e8a03a9b"
+        },
+        {
+          "name": "Service 4",
+          "cost": "150",
+          "description": "Service for test",
+          "id": "7878eb80-b998-4ef1-a4c2-7ef05b11493a"
+        }
+      ],
+      "id": 4
     }
   ],
   "categories": [
