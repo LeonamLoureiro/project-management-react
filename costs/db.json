@@ -18,8 +18,21 @@
         "id": "2",
         "name": "Development"
       },
-      "costs": 0,
-      "services": [],
+      "costs": 900,
+      "services": [
+        {
+          "name": "Service 2",
+          "cost": "500",
+          "description": "Build something",
+          "id": "7c0dd98b-f53e-4d5e-84eb-7e334498c5b3"
+        },
+        {
+          "name": "Service 3",
+          "cost": "400",
+          "description": "Build another something",
+          "id": "797aa18a-d75f-4ad8-9635-3b20605bf5ea"
+        }
+      ],
       "id": 2
     },
     {
