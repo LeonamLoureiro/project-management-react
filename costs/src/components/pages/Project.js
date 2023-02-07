@@ -1,7 +1,7 @@
 import styles from './Project.module.css'
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { parse, v4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 import Loading from '../layout/Loading'
 import Container from '../layout/Container'
 import ProjectForm from '../project/ProjectForm'
@@ -78,7 +78,33 @@ function Project() {
 
     }
 
-    function removeService() {
+    function removeService(id, cost) {
+        
+        setMessage('')
+
+        const servicesUpdated = project.services.filter((service) => service.id !== id,)
+
+        const projectUpdated = project
+
+        projectUpdated.services = servicesUpdated
+
+        projectUpdated.costs = parseFloat(projectUpdated.costs) - parseFloat(cost)
+
+        fetch(`http://localhost:5000/projects/${projectUpdated.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(projectUpdated),
+        })
+        .then((resp) => resp.json())
+        .then((data) => {
+            setProject(projectUpdated)
+            setServices(servicesUpdated)
+            setMessage('Service Successfully Removed')
+            setType('success')
+        })
+        .catch((err) => console.log(err))
 
     }
 
